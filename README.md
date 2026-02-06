@@ -1,2 +1,694 @@
-# valentine
-Valentine game
+<!DOCTYPE html>
+
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>💝 Message Spécial pour Larissa 💝</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+```
+    body {
+        font-family: 'Poppins', sans-serif;
+        overflow: hidden;
+        position: relative;
+        width: 100vw;
+        height: 100vh;
+    }
+
+    /* Animation de fond avec coeurs */
+    @keyframes float-hearts {
+        0% {
+            transform: translateY(100vh) rotate(0deg);
+            opacity: 0;
+        }
+        10% {
+            opacity: 1;
+        }
+        90% {
+            opacity: 1;
+        }
+        100% {
+            transform: translateY(-100vh) rotate(360deg);
+            opacity: 0;
+        }
+    }
+
+    .background {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+        z-index: -2;
+        animation: gradient-shift 10s ease infinite;
+    }
+
+    @keyframes gradient-shift {
+        0%, 100% {
+            filter: hue-rotate(0deg);
+        }
+        50% {
+            filter: hue-rotate(20deg);
+        }
+    }
+
+    .floating-hearts {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: -1;
+    }
+
+    .heart {
+        position: absolute;
+        font-size: 30px;
+        opacity: 0;
+        animation: float-hearts linear infinite;
+    }
+
+    /* Container principal */
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        padding: 20px;
+        position: relative;
+        z-index: 1;
+    }
+
+    /* Carte de question */
+    .valentine-card {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        border-radius: 30px;
+        padding: 60px 50px;
+        box-shadow: 0 30px 80px rgba(0, 0, 0, 0.3);
+        text-align: center;
+        max-width: 600px;
+        width: 100%;
+        position: relative;
+        animation: card-enter 1s cubic-bezier(0.34, 1.56, 0.64, 1);
+        border: 3px solid rgba(255, 255, 255, 0.3);
+    }
+
+    @keyframes card-enter {
+        0% {
+            transform: scale(0) rotate(-180deg);
+            opacity: 0;
+        }
+        100% {
+            transform: scale(1) rotate(0deg);
+            opacity: 1;
+        }
+    }
+
+    .card-header {
+        margin-bottom: 30px;
+    }
+
+    .emoji-love {
+        font-size: 80px;
+        animation: pulse-love 1.5s ease-in-out infinite;
+        display: inline-block;
+    }
+
+    @keyframes pulse-love {
+        0%, 100% {
+            transform: scale(1);
+        }
+        50% {
+            transform: scale(1.2);
+        }
+    }
+
+    .question-title {
+        font-family: 'Playfair Display', serif;
+        font-size: 42px;
+        font-weight: 700;
+        color: #c2185b;
+        margin: 20px 0;
+        line-height: 1.3;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .question-subtitle {
+        font-family: 'Pacifico', cursive;
+        font-size: 28px;
+        color: #7b1fa2;
+        margin-bottom: 10px;
+    }
+
+    .question-text {
+        font-size: 18px;
+        color: #555;
+        margin: 20px 0;
+        font-weight: 300;
+    }
+
+    /* Boutons */
+    .buttons-container {
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+        margin-top: 40px;
+        flex-wrap: wrap;
+    }
+
+    .btn {
+        padding: 18px 45px;
+        font-size: 20px;
+        font-weight: 600;
+        border: none;
+        border-radius: 50px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-family: 'Poppins', sans-serif;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .btn::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.3);
+        transform: translate(-50%, -50%);
+        transition: width 0.6s, height 0.6s;
+    }
+
+    .btn:hover::before {
+        width: 300px;
+        height: 300px;
+    }
+
+    .btn-yes {
+        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        color: white;
+    }
+
+    .btn-yes:hover {
+        transform: scale(1.1);
+        box-shadow: 0 15px 40px rgba(245, 87, 108, 0.5);
+    }
+
+    .btn-no {
+        background: linear-gradient(135deg, #a8a8a8 0%, #6c6c6c 100%);
+        color: white;
+        position: relative;
+    }
+
+    /* Le bouton "Non" s'échappe */
+    .btn-no:hover {
+        animation: escape 0.3s ease;
+    }
+
+    @keyframes escape {
+        0%, 100% {
+            transform: translate(0, 0);
+        }
+        25% {
+            transform: translate(-100px, -50px);
+        }
+        50% {
+            transform: translate(100px, 50px);
+        }
+        75% {
+            transform: translate(-50px, 100px);
+        }
+    }
+
+    /* Écran de célébration */
+    .celebration-screen {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, #f093fb 0%, #f5576c 50%, #ff6b9d 100%);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+        animation: celebration-fade-in 1s ease;
+    }
+
+    @keyframes celebration-fade-in {
+        0% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
+
+    .celebration-content {
+        text-align: center;
+        color: white;
+        padding: 40px;
+        animation: celebration-content-enter 1.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    @keyframes celebration-content-enter {
+        0% {
+            transform: scale(0) rotate(-180deg);
+            opacity: 0;
+        }
+        100% {
+            transform: scale(1) rotate(0deg);
+            opacity: 1;
+        }
+    }
+
+    .celebration-emoji {
+        font-size: 120px;
+        animation: celebration-emoji-spin 2s ease infinite;
+        display: inline-block;
+    }
+
+    @keyframes celebration-emoji-spin {
+        0%, 100% {
+            transform: rotate(-10deg) scale(1);
+        }
+        50% {
+            transform: rotate(10deg) scale(1.2);
+        }
+    }
+
+    .celebration-title {
+        font-family: 'Playfair Display', serif;
+        font-size: 60px;
+        font-weight: 700;
+        margin: 30px 0;
+        text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3);
+        animation: text-glow 2s ease-in-out infinite;
+    }
+
+    @keyframes text-glow {
+        0%, 100% {
+            text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        50% {
+            text-shadow: 0 0 30px rgba(255, 255, 255, 0.8), 4px 4px 8px rgba(0, 0, 0, 0.3);
+        }
+    }
+
+    .celebration-message {
+        font-size: 28px;
+        font-weight: 300;
+        max-width: 700px;
+        margin: 0 auto;
+        line-height: 1.6;
+    }
+
+    .celebration-signature {
+        font-family: 'Pacifico', cursive;
+        font-size: 36px;
+        margin-top: 40px;
+    }
+
+    /* Feux d'artifice */
+    .fireworks-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 9999;
+    }
+
+    .firework {
+        position: absolute;
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        animation: firework-explode 1.5s ease-out forwards;
+    }
+
+    @keyframes firework-explode {
+        0% {
+            transform: scale(0);
+            opacity: 1;
+        }
+        50% {
+            opacity: 1;
+        }
+        100% {
+            transform: scale(50);
+            opacity: 0;
+        }
+    }
+
+    .spark {
+        position: absolute;
+        width: 4px;
+        height: 4px;
+        background: white;
+        border-radius: 50%;
+        animation: spark-fly 1s ease-out forwards;
+    }
+
+    @keyframes spark-fly {
+        0% {
+            transform: translate(0, 0) scale(1);
+            opacity: 1;
+        }
+        100% {
+            transform: translate(var(--tx), var(--ty)) scale(0);
+            opacity: 0;
+        }
+    }
+
+    /* Confettis */
+    .confetti {
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        background: #f0f;
+        animation: confetti-fall 3s linear forwards;
+    }
+
+    @keyframes confetti-fall {
+        0% {
+            transform: translateY(0) rotate(0deg);
+            opacity: 1;
+        }
+        100% {
+            transform: translateY(100vh) rotate(720deg);
+            opacity: 0;
+        }
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .valentine-card {
+            padding: 40px 30px;
+        }
+
+        .question-title {
+            font-size: 32px;
+        }
+
+        .question-subtitle {
+            font-size: 22px;
+        }
+
+        .btn {
+            padding: 15px 35px;
+            font-size: 18px;
+        }
+
+        .celebration-title {
+            font-size: 40px;
+        }
+
+        .celebration-message {
+            font-size: 22px;
+        }
+    }
+
+    /* Effet de scintillement */
+    @keyframes sparkle {
+        0%, 100% {
+            opacity: 0;
+            transform: scale(0);
+        }
+        50% {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+
+    .sparkle {
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        animation: sparkle 2s ease-in-out infinite;
+    }
+</style>
+```
+
+</head>
+<body>
+    <!-- Fond animé -->
+    <div class="background"></div>
+    <div class="floating-hearts" id="floatingHearts"></div>
+
+```
+<!-- Conteneur principal -->
+<div class="container">
+    <div class="valentine-card" id="valentineCard">
+        <div class="card-header">
+            <div class="emoji-love">💖</div>
+        </div>
+        <h2 class="question-subtitle">Larissa,</h2>
+        <h1 class="question-title">Veux-tu être ma Valentine?</h1>
+        <p class="question-text">
+            Cette Saint-Valentin serait parfaite avec toi à mes côtés... 🌹
+        </p>
+        <div class="buttons-container">
+            <button class="btn btn-yes" id="btnYes">
+                💝 Oui, avec plaisir!
+            </button>
+            <button class="btn btn-no" id="btnNo">
+                😢 Non, désolée
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Écran de célébration -->
+<div class="celebration-screen" id="celebrationScreen">
+    <div class="celebration-content">
+        <div class="celebration-emoji">🎉💕✨</div>
+        <h1 class="celebration-title">Merci de m'avoir choisi comme partenaire!</h1>
+        <p class="celebration-message">
+            Tu viens de rendre cette Saint-Valentin inoubliable! 
+            Je promets de faire tout mon possible pour que chaque moment avec toi soit magique. 
+            Ensemble, on va créer des souvenirs extraordinaires! 💑
+        </p>
+        <p class="celebration-signature">Avec tout mon amour, Clarence 💝</p>
+    </div>
+</div>
+
+<!-- Conteneur de feux d'artifice -->
+<div class="fireworks-container" id="fireworksContainer"></div>
+
+<script>
+    // Génération de coeurs flottants
+    function createFloatingHearts() {
+        const container = document.getElementById('floatingHearts');
+        const heartEmojis = ['❤️', '💕', '💖', '💗', '💝', '💞', '💓'];
+        
+        for (let i = 0; i < 20; i++) {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.textContent = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
+            heart.style.left = Math.random() * 100 + '%';
+            heart.style.animationDuration = (Math.random() * 10 + 15) + 's';
+            heart.style.animationDelay = Math.random() * 5 + 's';
+            heart.style.fontSize = (Math.random() * 20 + 20) + 'px';
+            container.appendChild(heart);
+        }
+    }
+
+    // Bouton Non qui s'échappe
+    const btnNo = document.getElementById('btnNo');
+    let noClickCount = 0;
+    const noMessages = [
+        "😢 Tu es sûre?",
+        "🥺 Réfléchis encore...",
+        "💔 Ça me brise le cœur!",
+        "🙏 S'il te plaît...",
+        "😭 Dernière chance!"
+    ];
+
+    btnNo.addEventListener('mouseenter', function() {
+        noClickCount++;
+        if (noClickCount < noMessages.length) {
+            this.textContent = noMessages[noClickCount];
+        }
+        
+        // Déplace le bouton aléatoirement
+        const maxX = window.innerWidth - this.offsetWidth - 100;
+        const maxY = window.innerHeight - this.offsetHeight - 100;
+        const randomX = Math.random() * maxX;
+        const randomY = Math.random() * maxY;
+        
+        this.style.position = 'fixed';
+        this.style.left = randomX + 'px';
+        this.style.top = randomY + 'px';
+    });
+
+    // Empêcher de cliquer sur Non
+    btnNo.addEventListener('click', function(e) {
+        e.preventDefault();
+        const messages = [
+            "Essaie encore! 😊",
+            "Le bouton Oui est juste à côté! 👉",
+            "Tu n'as pas le choix, désolé! 😄"
+        ];
+        alert(messages[Math.floor(Math.random() * messages.length)]);
+    });
+
+    // Bouton Oui
+    const btnYes = document.getElementById('btnYes');
+    btnYes.addEventListener('click', function() {
+        // Cache la carte
+        document.getElementById('valentineCard').style.display = 'none';
+        
+        // Affiche l'écran de célébration
+        const celebrationScreen = document.getElementById('celebrationScreen');
+        celebrationScreen.style.display = 'flex';
+        
+        // Lance les feux d'artifice
+        startFireworks();
+        
+        // Lance les confettis
+        startConfetti();
+        
+        // Joue un son de célébration (optionnel)
+        playCelebrationSound();
+    });
+
+    // Fonction pour créer des feux d'artifice
+    function createFirework(x, y) {
+        const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff', '#ff8800', '#ff0088'];
+        const color = colors[Math.floor(Math.random() * colors.length)];
+        
+        // Crée l'explosion centrale
+        const firework = document.createElement('div');
+        firework.className = 'firework';
+        firework.style.left = x + 'px';
+        firework.style.top = y + 'px';
+        firework.style.background = `radial-gradient(circle, ${color}, transparent)`;
+        document.getElementById('fireworksContainer').appendChild(firework);
+        
+        // Crée les étincelles
+        for (let i = 0; i < 30; i++) {
+            const spark = document.createElement('div');
+            spark.className = 'spark';
+            spark.style.left = x + 'px';
+            spark.style.top = y + 'px';
+            spark.style.background = color;
+            
+            const angle = (Math.PI * 2 * i) / 30;
+            const velocity = Math.random() * 100 + 50;
+            const tx = Math.cos(angle) * velocity;
+            const ty = Math.sin(angle) * velocity;
+            
+            spark.style.setProperty('--tx', tx + 'px');
+            spark.style.setProperty('--ty', ty + 'px');
+            
+            document.getElementById('fireworksContainer').appendChild(spark);
+            
+            setTimeout(() => spark.remove(), 1000);
+        }
+        
+        setTimeout(() => firework.remove(), 1500);
+    }
+
+    // Lance plusieurs feux d'artifice
+    function startFireworks() {
+        const fireworkCount = 30;
+        const duration = 5000;
+        
+        for (let i = 0; i < fireworkCount; i++) {
+            setTimeout(() => {
+                const x = Math.random() * window.innerWidth;
+                const y = Math.random() * window.innerHeight;
+                createFirework(x, y);
+            }, (duration / fireworkCount) * i);
+        }
+        
+        // Continue les feux d'artifice
+        setInterval(() => {
+            const x = Math.random() * window.innerWidth;
+            const y = Math.random() * window.innerHeight;
+            createFirework(x, y);
+        }, 800);
+    }
+
+    // Fonction pour créer des confettis
+    function createConfetti(x, y) {
+        const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff', '#ff8800'];
+        const confetti = document.createElement('div');
+        confetti.className = 'confetti';
+        confetti.style.left = x + 'px';
+        confetti.style.top = y + 'px';
+        confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+        confetti.style.width = Math.random() * 10 + 5 + 'px';
+        confetti.style.height = Math.random() * 10 + 5 + 'px';
+        confetti.style.animationDuration = Math.random() * 2 + 2 + 's';
+        confetti.style.animationDelay = Math.random() * 0.5 + 's';
+        
+        document.getElementById('fireworksContainer').appendChild(confetti);
+        
+        setTimeout(() => confetti.remove(), 3000);
+    }
+
+    // Lance des confettis
+    function startConfetti() {
+        for (let i = 0; i < 100; i++) {
+            setTimeout(() => {
+                const x = Math.random() * window.innerWidth;
+                createConfetti(x, -10);
+            }, i * 50);
+        }
+    }
+
+    // Son de célébration (simulation)
+    function playCelebrationSound() {
+        // Vous pouvez ajouter un vrai fichier audio ici
+        console.log('🎵 Célébration! 🎉');
+    }
+
+    // Initialisation
+    createFloatingHearts();
+
+    // Ajouter des étoiles scintillantes
+    function createSparkles() {
+        setInterval(() => {
+            const sparkle = document.createElement('div');
+            sparkle.className = 'sparkle';
+            sparkle.textContent = '✨';
+            sparkle.style.left = Math.random() * 100 + '%';
+            sparkle.style.top = Math.random() * 100 + '%';
+            sparkle.style.animationDelay = Math.random() * 2 + 's';
+            document.body.appendChild(sparkle);
+            
+            setTimeout(() => sparkle.remove(), 2000);
+        }, 300);
+    }
+
+    createSparkles();
+
+    // Agrandir le bouton Oui progressivement
+    let yesHoverCount = 0;
+    btnYes.addEventListener('mouseenter', function() {
+        yesHoverCount++;
+        const newSize = 1 + (yesHoverCount * 0.05);
+        this.style.transform = `scale(${Math.min(newSize, 1.3)})`;
+    });
+</script>
+```
+
+</body>
+</html>
